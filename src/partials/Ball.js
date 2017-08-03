@@ -8,6 +8,10 @@ export default class Ball {
     this.boardHeight = boardHeight;
     this.direction = 1;
   }
+  reset() {
+    this.x = this.boardWidth / 2;
+    this.y = this.boardHeight / 2;
+  }
   render(svg){
     // Initialize the rect that will act as the paddle
     let circle = document.createElementNS(SVG_NS,'circle');

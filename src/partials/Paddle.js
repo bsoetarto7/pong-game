@@ -25,7 +25,7 @@ export default class Paddle {
     this.y = Math.max(this.y - this.speed,0);
   }
   down(){
-    this.y = Math.min(this.y+this.speed,this.boardHeight - this.height);
+    this.y = Math.min(this.y + this.speed,this.boardHeight - this.height);
   }
   render(svg){
     // Initialize the rect that will act as the paddle
