@@ -10,6 +10,8 @@ export default class Game {
 		this.width = width;
 		this.height = height;
 		this.gameElement = document.getElementById(element);
+		this.numberOfBall = 1;
+		this.listOfBalls =[];
 		this.board = new Board(this.width, this.height); // Instantiate the board from the Board.js into the constructor
 		this.player1 = new Paddle(
 			this.height,
@@ -31,7 +33,7 @@ export default class Game {
 			KEYS.down,
 			KEYS.spaceBar
 		); // Instantiate the player 2 from the Paddle.js into the constructor
-		this.ball = new Ball(8,this.width, this.height);
+		this.listOfBalls.push(new Ball(8,this.width, this.height));
 		this.player1Score = new Score((this.width/2)-80,30,30);
 		this.player2Score = new Score((this.width/2)+63,30,30);
 		document.addEventListener('keydown', event => {
@@ -39,10 +41,16 @@ export default class Game {
         case KEYS.spaceBar:
 					this.pause = !this.pause;
 					break;
+				case KEYS.g:
+					if (this.numberOfBall<5){
+						this.numberOfBall++;
+						this.listOfBalls.push(new Ball(8,this.width, this.height));
+					}
+					break;
       }
     });
 	}
-	
+
 	render() {
 		if (this.pause){
 			return
@@ -58,7 +66,9 @@ export default class Game {
 		this.board.render(svg); // Invoke board render method and pass svg as an argument
 		this.player1.render(svg);
 		this.player2.render(svg);
-		this.ball.render(svg,this.player1,this.player2);
+		for(let ball of this.listOfBalls){
+			ball.render(svg,this.player1,this.player2);
+		}
 		this.player1Score.render(svg,this.player1.score);
 		this.player2Score.render(svg,this.player2.score);
 	}
