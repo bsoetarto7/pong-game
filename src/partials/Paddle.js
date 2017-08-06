@@ -10,7 +10,7 @@ export default class Paddle {
     this.y = y;
     this.speed = 10;
     this.score = 0;
-    document.addEventListener('keydown', event => {
+    document.addEventListener('keydown', event => { // Listen to key press and determine which method to invoke
       switch (event.key) {
         case up:
           this.up();
@@ -25,20 +25,20 @@ export default class Paddle {
     });
     
   }
-  up(){
+  up(){ // Method that will move the paddle up
     if(this.pause){
       return;
     }
     this.y = Math.max(this.y - this.speed,0);
     
   }
-  down(){
+  down(){ // Method that will move the paddle down
     if(this.pause){
       return;
     }
     this.y = Math.min(this.y + this.speed,this.boardHeight - this.height);
   }
-  coordinates(x, y, width, height) {
+  coordinates(x, y, width, height) { //Method that will return the x and y coordinates of the paddle
     let leftX = x;
     let rightX = x + width;
     let topY = y;

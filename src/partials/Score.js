@@ -7,6 +7,7 @@ export default class Score {
   }
   
   render(svg,score){
+    // Initialize the text to display score
     let text = document.createElementNS(SVG_NS,'text');
     text.setAttributeNS(null, 'x', this.x);
     text.setAttributeNS(null, 'y', this.y);

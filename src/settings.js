@@ -12,3 +12,10 @@ export const PADDLE_OPTIONS = {
   paddleHeight: 56,
   boardGap: 10,
 }
+export const BALL_OPTIONS = {
+  radius: 8
+}
+export const WIN_OPTIONS = {
+  width: 200,
+  height:50
+}
