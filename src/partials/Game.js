@@ -37,7 +37,7 @@ export default class Game {
 		this.listOfBalls.push(new Ball(8,this.width, this.height));
 		this.player1Score = new Score((this.width/2)-80,30,30);
 		this.player2Score = new Score((this.width/2)+63,30,30);
-		this.win = new Win (this.width,this.height,170,50);
+		this.win = new Win (this.width,this.height,200,50);
 		document.addEventListener('keydown', event => {
       switch (event.key) {
         case KEYS.spaceBar:
