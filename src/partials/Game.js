@@ -52,24 +52,25 @@ export default class Game {
 	}
 
 	render() {
-		if (this.pause){
+		if (this.pause || this.player1.score === 15 || this.player2.score === 15){
 			return
+		}else{
+			// Initialize the svg element and append it to html
+			this.gameElement.innerHTML = ''; // Empty the game div before redrawing the svg
+			let svg = document.createElementNS(SVG_NS, 'svg');
+			svg.setAttributeNS(null, 'version', '1.1');
+			svg.setAttributeNS(null, 'width', this.width);
+			svg.setAttributeNS(null, 'height', this.height);
+			svg.setAttributeNS(null, 'viewBox', `0 0 ${this.width} ${this.height}`);
+			this.gameElement.appendChild(svg);
+			this.board.render(svg); // Invoke board render method and pass svg as an argument
+			this.player1.render(svg);
+			this.player2.render(svg);
+			for(let ball of this.listOfBalls){
+				ball.render(svg,this.player1,this.player2);
+			}
+			this.player1Score.render(svg,this.player1.score);
+			this.player2Score.render(svg,this.player2.score);
 		}
-		// Initialize the svg element and append it to html
-		this.gameElement.innerHTML = ''; // Empty the game div before redrawing the svg
-		let svg = document.createElementNS(SVG_NS, 'svg');
-		svg.setAttributeNS(null, 'version', '1.1');
-		svg.setAttributeNS(null, 'width', this.width);
-		svg.setAttributeNS(null, 'height', this.height);
-		svg.setAttributeNS(null, 'viewBox', `0 0 ${this.width} ${this.height}`);
-		this.gameElement.appendChild(svg);
-		this.board.render(svg); // Invoke board render method and pass svg as an argument
-		this.player1.render(svg);
-		this.player2.render(svg);
-		for(let ball of this.listOfBalls){
-			ball.render(svg,this.player1,this.player2);
-		}
-		this.player1Score.render(svg,this.player1.score);
-		this.player2Score.render(svg,this.player2.score);
 	}
 }
