@@ -52,25 +52,40 @@ export default class Game {
 	}
 
 	render() {
+				// Initialize the svg element and append it to html
+		this.gameElement.innerHTML = ''; // Empty the game div before redrawing the svg
+		let svg = document.createElementNS(SVG_NS, 'svg');
+		svg.setAttributeNS(null, 'version', '1.1');
+		svg.setAttributeNS(null, 'width', this.width);
+		svg.setAttributeNS(null, 'height', this.height);
+		svg.setAttributeNS(null, 'viewBox', `0 0 ${this.width} ${this.height}`);
+		this.gameElement.appendChild(svg);
+		this.board.render(svg); // Invoke board render method and pass svg as an argument
+		this.player1Score.render(svg,this.player1.score);
+		this.player2Score.render(svg,this.player2.score);
+
 		if (this.pause || this.player1.score === 15 || this.player2.score === 15){
+			let rect = document.createElementNS(SVG_NS,'rect');
+			rect.setAttributeNS(null, 'width', 170);
+			rect.setAttributeNS(null, 'height', 50);
+			rect.setAttributeNS(null, 'x', (this.width/2)-100);
+			rect.setAttributeNS(null, 'y', this.height/2-20);
+			rect.setAttributeNS(null, 'fill', '#000');
+			svg.appendChild(rect);
+			let text = document.createElementNS(SVG_NS,'text');
+			text.setAttributeNS(null, 'x', (this.width/2)-100);
+			text.setAttributeNS(null, 'y', this.height/2);
+			text.setAttributeNS(null, 'fill', '#fff');
+			text.setAttributeNS(null, 'font-size', 20);
+			text.setAttributeNS(null, 'font-family', 'Silkscreen Web');
+			text.textContent = this.player1.score===15 ? `Player 1 wins!`:`Player 2 wins`;
+			svg.appendChild(text);
 			return
-		}else{
-			// Initialize the svg element and append it to html
-			this.gameElement.innerHTML = ''; // Empty the game div before redrawing the svg
-			let svg = document.createElementNS(SVG_NS, 'svg');
-			svg.setAttributeNS(null, 'version', '1.1');
-			svg.setAttributeNS(null, 'width', this.width);
-			svg.setAttributeNS(null, 'height', this.height);
-			svg.setAttributeNS(null, 'viewBox', `0 0 ${this.width} ${this.height}`);
-			this.gameElement.appendChild(svg);
-			this.board.render(svg); // Invoke board render method and pass svg as an argument
-			this.player1.render(svg);
-			this.player2.render(svg);
-			for(let ball of this.listOfBalls){
-				ball.render(svg,this.player1,this.player2);
-			}
-			this.player1Score.render(svg,this.player1.score);
-			this.player2Score.render(svg,this.player2.score);
+		}
+		this.player1.render(svg);
+		this.player2.render(svg);
+		for(let ball of this.listOfBalls){
+			ball.render(svg,this.player1,this.player2);
 		}
 	}
 }
