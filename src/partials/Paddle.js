@@ -10,7 +10,7 @@ export default class Paddle {
     this.y = y;
     this.speed = 10;
     this.score = 0;
-    document.addEventListener('keydown', event => { // Listen to key press and determine which method to invoke
+    document.addEventListener('keydown', event => {
       switch (event.key) {
         case up:
           this.up();
@@ -23,7 +23,6 @@ export default class Paddle {
           break;
       }
     });
-    
   }
   up(){ // Method that will move the paddle up
     if(this.pause){
