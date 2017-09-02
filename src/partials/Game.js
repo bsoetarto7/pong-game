@@ -14,31 +14,29 @@ export default class Game {
 		this.numberOfBall = 1;
 		this.listOfBalls =[];
 		this.board = new Board(this.width, this.height);
-		this.player1 = new Paddle(
-			this.height,
-			PADDLE_OPTIONS.paddleWidth,
-			PADDLE_OPTIONS.paddleHeight,
-			PADDLE_OPTIONS.boardGap,
-			((this.height - PADDLE_OPTIONS.paddleHeight)/2),
-			KEYS.a,
-			KEYS.z,
-			KEYS.spaceBar
-		); // Instantiate the player 1 from the Paddle.js into the constructor
-		this.player2 = new Paddle(
-			this.height,
-			PADDLE_OPTIONS.paddleWidth,
-			PADDLE_OPTIONS.paddleHeight,
-			(this.width - PADDLE_OPTIONS.boardGap - PADDLE_OPTIONS.paddleWidth),
-			((this.height - PADDLE_OPTIONS.paddleHeight)/2),
-			KEYS.up,
-			KEYS.down,
-			KEYS.spaceBar
-		); // Instantiate the player 2 from the Paddle.js into the constructor
+		this.player1 = this.instantiatePlayer(this.player1, PADDLE_OPTIONS.boardGap, KEYS.a, KEYS.z, KEYS.spaceBar);
+		this.player2 = this.instantiatePlayer(this.player2, (this.width - PADDLE_OPTIONS.boardGap - PADDLE_OPTIONS.paddleWidth), KEYS.up, KEYS.down, KEYS.spaceBar);
+
 		this.listOfBalls.push(new Ball(BALL_OPTIONS.radius,this.width, this.height)); // Instantiate first ball and push into list of ball array
-		this.player1Score = new Score((this.width/2)-80,30,30); // Instantiate player 1 score object
-		this.player2Score = new Score((this.width/2)+63,30,30); // Instantiate player 2 score object
-		this.win = new Win (this.width,this.height,WIN_OPTIONS.width,WIN_OPTIONS.height); // Instantiate winning object
+		this.player1Score = this.instantiatePlayerScore(this.player1Score, (this.width/2)-80); // Instantiate player 1 score object
+		this.player2Score = this.instantiatePlayerScore(this.player2Score, (this.width/2)+63); // Instantiate player 2 score object
+		this.win = new Win (this.width, this.height, WIN_OPTIONS.width, WIN_OPTIONS.height); // Instantiate winning object
 		this.keyPressListener();
+	}
+	instantiatePlayerScore(playerScore, positionX){
+		return playerScore = new Score(positionX, 30, 30);
+	}
+	instantiatePlayer(player, positionX, up, down, spacebar){
+		return player = new Paddle(
+			this.height,
+			PADDLE_OPTIONS.paddleWidth,
+			PADDLE_OPTIONS.paddleHeight,
+			positionX,
+			((this.height - PADDLE_OPTIONS.paddleHeight)/2),
+			up,
+			down,
+			spacebar
+		);
 	}
 	keyPressListener(){
 		document.addEventListener('keydown', event => {
