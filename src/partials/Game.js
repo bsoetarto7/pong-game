@@ -38,21 +38,26 @@ export default class Game {
 		this.player1Score = new Score((this.width/2)-80,30,30); // Instantiate player 1 score object
 		this.player2Score = new Score((this.width/2)+63,30,30); // Instantiate player 2 score object
 		this.win = new Win (this.width,this.height,WIN_OPTIONS.width,WIN_OPTIONS.height); // Instantiate winning object
+		this.keyPressListener();
+	}
+	keyPressListener(){
 		document.addEventListener('keydown', event => {
       switch (event.key) {
         case KEYS.spaceBar:
 					this.pause = !this.pause;
 					break;
 				case KEYS.g:
-					if (this.numberOfBall<5){
-						this.numberOfBall++;
-						this.listOfBalls.push(new Ball(BALL_OPTIONS.radius,this.width, this.height));
-					}
+					this.addPongBall();
 					break;
       }
     });
 	}
-
+	addPongBall(){
+		if (this.numberOfBall<5){
+			this.numberOfBall++;
+			this.listOfBalls.push(new Ball(BALL_OPTIONS.radius, this.width, this.height));
+		}
+	}
 	render() {
 		// Initialize the svg element and append it to html
 		this.gameElement.innerHTML = '';
